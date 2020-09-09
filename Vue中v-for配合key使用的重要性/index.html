@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?fa6cc5db580a54a9a863a5425b9592a2"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Vue中v-for配合key使用的重要性 | VicoHu-个人博客 | 用程序员的眼光，戏剧地看待世界</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue">
+    <meta name="description" content="在 Vue 官网的风格指南中，有很多对于Vue编码的风格的要求和建议。在这里，主要解释在编码指南中，为优先级A：必要的 的编码规范的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中v-for配合key使用的重要性">
+<meta property="og:url" content="https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/index.html">
+<meta property="og:site_name" content="VicoHu-个人博客">
+<meta property="og:description" content="在 Vue 官网的风格指南中，有很多对于Vue编码的风格的要求和建议。在这里，主要解释在编码指南中，为优先级A：必要的 的编码规范的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715230054667.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071523012477.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715230304135.png">
+<meta property="article:published_time" content="2020-07-12T15:15:21.000Z">
+<meta property="article:modified_time" content="2020-09-05T11:25:14.056Z">
+<meta property="article:author" content="VicoHu">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200715230054667.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="VicoHu-个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">VicoHu</h5>
+          <a href="mailto:vicohu@163.com" title="vicohu@163.com" class="mail">vicohu@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类别
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/VicoHu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/wall5235" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                新浪微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://wall.vicohu.com" target="_blank" >
+                <i class="icon icon-lg icon-bolt"></i>
+                刷网课
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vue中v-for配合key使用的重要性</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vue中v-for配合key使用的重要性</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-07-12T15:15:21.000Z" itemprop="datePublished" class="page-time">
+  2020-07-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Vue/">Vue</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#不使用key的情况"><span class="post-toc-text">不使用key的情况</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#测试情况"><span class="post-toc-text">测试情况</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用key的情况"><span class="post-toc-text">使用key的情况</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#测试情况-1"><span class="post-toc-text">测试情况</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分析原因"><span class="post-toc-text">分析原因</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于ESLint的一些观点"><span class="post-toc-text">关于ESLint的一些观点</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Vue中v-for配合key使用的重要性"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vue中v-for配合key使用的重要性</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-07-12 23:15:21" datetime="2020-07-12T15:15:21.000Z"  itemprop="datePublished">2020-07-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Vue/">Vue</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>在 <strong>Vue 官网</strong>的<strong>风格指南</strong>中，有很多对于Vue编码的风格的要求和建议。<br>在这里，主要解释在<strong>编码指南</strong>中，为<strong>优先级A：必要的</strong> 的编码规范的 <u><strong><a href="https://cn.vuejs.org/v2/style-guide/#%E4%B8%BA-v-for-%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%80%BC%E5%BF%85%E8%A6%81" target="_blank" rel="noopener"%3Ehttps://cn.vuejs.org/v2/style-guide/#%E4%B8%BA-v-for-%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%80%BC%E5%BF%85%E8%A6%81">为 v-for 设置键值</a></strong></u></p>
+</blockquote>
+<blockquote>
+<p>相信在编码初期，很多人都不理解 <strong>key</strong> 的作用，因为似乎有与没有，似乎都能完成元素的渲染。（当然，用过 <strong>Vue  CLI</strong>，并设置了 <strong>ESlint</strong> 的朋友，应该会发现 <strong>ESLint</strong> <strong>强制要求</strong>我们在使用 <strong>v-for</strong> 时，加入 <strong>key</strong>，否则在编译阶段会报错）</p>
+<p>在官网文档中，对 <strong>key</strong> 做出的诠释是：</p>
+<blockquote>
+<p>如果不使用 <strong>key</strong>，<strong>Vue</strong> 会使用一种<strong>最大限度减少动态元素</strong>并且尽可能的尝试就地修改/复用相同类型元素的算法。而使用 <strong>key</strong> 时，它会基于 <strong>key</strong> 的变化<strong>重新排列元素顺序</strong>，并且会<strong>移除</strong> <strong>key</strong> <strong>不存在</strong>的元素。</p>
+</blockquote>
+</blockquote>
+<p>由官方文档，则说明了 <strong>key</strong> 在 <strong>v-for</strong> 渲染的元素中，主要是作为<strong>唯一标识</strong>去让 <strong>Vue</strong> “认为”每个元素都是<strong>独一无二</strong>的，而不会因为<strong>为了减小渲染</strong>而<strong>复用或修改</strong>之前<strong>相类似</strong>的元素，而导致一些<strong>特殊情况</strong>的出现。</p>
+<h3 id="不使用key的情况"><a href="#不使用key的情况" class="headerlink" title="不使用key的情况"></a>不使用key的情况</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"NewFruitName"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 双向绑定文本框的输入到 NewFruitName --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"NewFruit"</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in FruitList"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- &lt;input type="checkbox"&gt; &#123;&#123;item.name&#125;&#125; --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"Fruit"</span> <span class="attr">type</span>=<span class="string">"radio"</span>&gt;</span> &#123;&#123;item.name&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 创建 Vue 实例，并将其挂载在id为app的div上</span></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line">        data: &#123;</span><br><span class="line">            FruitList: [&#123;</span><br><span class="line">                    id: 1,</span><br><span class="line"><span class="actionscript">                    name: <span class="string">'苹果'</span></span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    id: 2,</span><br><span class="line"><span class="actionscript">                    name: <span class="string">'香蕉'</span></span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    id: 3,</span><br><span class="line"><span class="actionscript">                    name: <span class="string">'橘子'</span></span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            NewFruitId: 3,</span><br><span class="line"><span class="actionscript">            <span class="comment">// 目前已存在的最大水果id为3</span></span></span><br><span class="line"><span class="actionscript">            NewFruitName: <span class="string">''</span>,</span></span><br><span class="line"><span class="actionscript">            <span class="comment">// 新的水果名</span></span></span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line"><span class="actionscript">            <span class="comment">// 添加一个新的水果</span></span></span><br><span class="line">            NewFruit() &#123;</span><br><span class="line"><span class="actionscript">                <span class="keyword">this</span>.NewFruitId = <span class="keyword">this</span>.NewFruitId + <span class="number">1</span>;</span></span><br><span class="line"><span class="actionscript">                <span class="comment">// unshift方法，是Array对象的方法，可向数组的开头添加一个或更多元素，并返回新的长度</span></span></span><br><span class="line"><span class="actionscript">                <span class="comment">// 在这里用该方法，主要是为了凸显出key的作用和效果，无特殊含义</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">this</span>.FruitList.unshift(&#123;</span></span><br><span class="line"><span class="actionscript">                    id: <span class="keyword">this</span>.NewFruitId,</span></span><br><span class="line"><span class="actionscript">                    name: <span class="keyword">this</span>.NewFruitName</span></span><br><span class="line">                &#125;)</span><br><span class="line"><span class="actionscript">                <span class="comment">// 由于双向绑定的缘故，为了显示效果，在添加完成后，清空输入框的输入文字</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">this</span>.NewFruitName = <span class="string">''</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="测试情况"><a href="#测试情况" class="headerlink" title="测试情况"></a>测试情况</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/20200715230054667.png" alt="初次选中" title="">
+                </div>
+                <div class="image-caption">初次选中</div>
+            </figure>
+<p>在上面这个情况中，当我们<strong>选中</strong>香蕉，<strong>再添加</strong>一个榴莲时，会发现，之前<strong>选中的<u>香蕉</u></strong>，<strong>变为选中<u>苹果</u></strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/2020071523012477.png" alt="无key选中后" title="">
+                </div>
+                <div class="image-caption">无key选中后</div>
+            </figure>
+<p>这显然不是我们想要的效果，我们<strong>预期的效果</strong>是添加一个水果后，之前选中的水果不会变化。</p>
+<hr>
+<h3 id="使用key的情况"><a href="#使用key的情况" class="headerlink" title="使用key的情况"></a>使用key的情况</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"NewFruitName"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 双向绑定文本框的输入到 NewFruitName --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"NewFruit"</span>&gt;</span>添加<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in FruitList"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- &lt;input type="checkbox"&gt; &#123;&#123;item.name&#125;&#125; --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"Fruit"</span> <span class="attr">type</span>=<span class="string">"radio"</span>&gt;</span> &#123;&#123;item.name&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 创建 Vue 实例，并将其挂载在id为app的div上</span></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line">        data: &#123;</span><br><span class="line">            FruitList: [&#123;</span><br><span class="line">                    id: 1,</span><br><span class="line"><span class="actionscript">                    name: <span class="string">'苹果'</span></span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    id: 2,</span><br><span class="line"><span class="actionscript">                    name: <span class="string">'香蕉'</span></span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    id: 3,</span><br><span class="line"><span class="actionscript">                    name: <span class="string">'橘子'</span></span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            NewFruitId: 3,</span><br><span class="line"><span class="actionscript">            <span class="comment">// 目前已存在的最大水果id为3</span></span></span><br><span class="line"><span class="actionscript">            NewFruitName: <span class="string">''</span>,</span></span><br><span class="line"><span class="actionscript">            <span class="comment">// 新的水果名</span></span></span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line"><span class="actionscript">            <span class="comment">// 添加一个新的水果</span></span></span><br><span class="line">            NewFruit() &#123;</span><br><span class="line"><span class="actionscript">                <span class="keyword">this</span>.NewFruitId = <span class="keyword">this</span>.NewFruitId + <span class="number">1</span>;</span></span><br><span class="line"><span class="actionscript">                <span class="comment">// unshift方法，是Array对象的方法，可向数组的开头添加一个或更多元素，并返回新的长度</span></span></span><br><span class="line"><span class="actionscript">                <span class="comment">// 在这里用该方法，主要是为了凸显出key的作用和效果，无特殊含义</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">this</span>.FruitList.unshift(&#123;</span></span><br><span class="line"><span class="actionscript">                    id: <span class="keyword">this</span>.NewFruitId,</span></span><br><span class="line"><span class="actionscript">                    name: <span class="keyword">this</span>.NewFruitName</span></span><br><span class="line">                &#125;)</span><br><span class="line"><span class="actionscript">                <span class="comment">// 由于双向绑定的缘故，为了显示效果，在添加完成后，清空输入框的输入文字</span></span></span><br><span class="line"><span class="actionscript">                <span class="keyword">this</span>.NewFruitName = <span class="string">''</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="测试情况-1"><a href="#测试情况-1" class="headerlink" title="测试情况"></a>测试情况</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/20200715230304135.png" alt="有key选中后" title="">
+                </div>
+                <div class="image-caption">有key选中后</div>
+            </figure>
+<p>在上面这个情况中，但我们<strong>选中</strong>香蕉，<strong>再添加</strong>一个榴莲时，则没有出现选中的水果错位的情况。这和我们的预期一样。</p>
+<hr>
+<h3 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h3><p>综上所述，使用 <strong>key</strong>，在 <strong>v-for</strong> 渲染的元素中，在某些情况下，出现和预期不一样的效果。<br>这就是因为，在 <strong>Vue渲染</strong> 的时候，<strong>通过只修改元素中的文字，而不重新生成整个元素，来减小渲染强度</strong>（只改变元素的2个文字，再添加一个元素，相比于<strong>摧毁</strong>所有元素，并<strong>重新创建</strong>所有元素，显然是前者渲染强度小一些。）</p>
+<h3 id="关于ESLint的一些观点"><a href="#关于ESLint的一些观点" class="headerlink" title="关于ESLint的一些观点"></a>关于ESLint的一些观点</h3><p>在现在大多数的情况下，我们都会使用 <strong>Vue CLI</strong> 来完成项目，在 <strong>Vue CLI</strong> 中可以选用 <strong>ESLint</strong> 来对代码进行一些格式规范、和编码规范。<br>当然，它有些时候对于编码的格式太过于严苛，而导致很多初期使用的人，会很头疼，这里可以推荐使用 <strong>VSCode</strong> 配合<br><strong>Prettier</strong> 插件，在保存时，进行<strong>自动格式调整</strong>。减小在格式调整上花的时间，又同时可以让 <strong>ESLint</strong> 对编码进行一些检测，比如上面的例子，在 <strong>v-for</strong> 中，不使用 <strong>key</strong>，则会<strong>不通过检测</strong>，并<strong>给出</strong>相应的<strong>提示</strong>。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-05T11:25:14.056Z" itemprop="dateUpdated">2020-09-05 19:25:14</time>
+</span><br>
+
+
+        
+        非常感谢您访问并阅读我写的文章，您的支持是我最大的动力！谢谢您！
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.vicohu.com">
+            <img src="/img/avatar.jpg" alt="VicoHu">
+            VicoHu
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=《Vue中v-for配合key使用的重要性》 — VicoHu-个人博客&pic=https://www.vicohu.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=《Vue中v-for配合key使用的重要性》 — VicoHu-个人博客&source=VicoHu，一个有导演梦的程序员" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue中v-for配合key使用的重要性》 — VicoHu-个人博客&url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&via=https://www.vicohu.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94Observe%E6%A8%A1%E5%BC%8F%EF%BC%88%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%89/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JavaScript设计模式——Observe模式（观察者模式）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Vue%E4%B8%ADv-if%E5%92%8Cv-show%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Vue中v-if和v-show的区别和使用场景</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "UVNqDDXYLnL5HE8NTu1O7Oqy-gzGzoHsz",
+            appKey: "tidEzLhcsNY5nvzrquBn4Y8D",
+            avatar: "mm",
+            placeholder: "说些什么吧！",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢各位大爷的支持~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>VicoHu &copy; 2019 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19020459号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=《Vue中v-for配合key使用的重要性》 — VicoHu-个人博客&pic=https://www.vicohu.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&title=《Vue中v-for配合key使用的重要性》 — VicoHu-个人博客&source=VicoHu，一个有导演梦的程序员" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue中v-for配合key使用的重要性》 — VicoHu-个人博客&url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/&via=https://www.vicohu.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.vicohu.com/Vue%E4%B8%ADv-for%E9%85%8D%E5%90%88key%E4%BD%BF%E7%94%A8%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD4UlEQVR42u3ay27DMAwEwPz/T7fXAqmTXVLuA5icAie1pcmBJbWPR/z6KF9Xf/X1+tX71/d8XtXz3z5/eviFAwcOHDgWW00e9vzgfCmvv7lZ2xAaBw4cOHAc4kjKWPL9vDTONnx1/1nRxYEDBw4cf4Fj/+nZHioHwoEDBw4cf58jWcpV8dtw5O0fDhw4cOD4LY6ksM0OjfKBXd6MtaX3llkpDhw4cOBIK11RtP7L+1vyHThw4MCBo2yWZuGGpFjmJbPdxWp3OHDgwIFjzZEXpBYrR2mfO7teUOLAgQMHjgXHJigwG/bN4giz+9SFHAcOHDhwHOLIYwevr+eDuX2pnpXzN/Q4cODAgeMox2w4mBfUBG4/IkyuXz4FBw4cOHAc5ZjdaH8g1MYm9gV1eOCEAwcOHDjSKdwjDyK0h0ZJCW+buvznObB+HDhw4MBxlCMfAuYFLD9kagt/2zpGjSIOHDhw4DjEsWmfNi3WrORvBo44cODAgeMsx9mttoGGGVwbhisCczhw4MCB4yjHbFSXt3CntpGD1j8tDhw4cOA4VCX3m9kcJs2421atCEzgwIEDB44FRzsKzCHyY6EkrDCLYrTjThw4cODAcYpjFn3LAwf50HAWg0two1XhwIEDB46jHG2LNTtYSq7PchkJWf0L4MCBAweOkuPAZDEut+37dgS5fxYOHDhw4NhzzI6FZiO52YiwrYyb9ePAgQMHjrs5ZgvKwwqbceT+/t/cAQcOHDhwrDlmjdYsxJBHHNoymaynXi0OHDhw4LiBI48RbM5u8u8kgYk2GHF5HQcOHDhwLDjaLc0e2Q4Q26Fke1j15hQOBw4cOHCMOPJDozamcF8cIXnK7G44cODAgWPPsT+emQUdZpvcDP72sQkcOHDgwDHjmA3+8k3OAgrt4HJzBQcOHDhwbDg+Rq+87cmPfGYlfE/2TUeLAwcOHDgWHG05bMeIP/M++ecgKec4cODAgWPPkbdqbdu2iUq0h14t2ZuQHA4cOHDgOMQxG+G14YB6Wlk2YLNP33S0OHDgwIGj5JgtfROVmx0gbZiiIo0DBw4cONYcmwI2K8Z5WC0p522Zj9pIHDhw4MCx4NhEGfK4Ww43Cyi09687Whw4cODA0Z3pPFZVOvir2dhuds/8IGpWnnHgwIEDRzsN28QXktFeHjXItzQr/Dhw4MCB426Odik/ObzbbLUu2Dhw4MCB45c42s3MAnl5A7kpyY82B4EDBw4cOG7mmIXeEqzNwHHWKOLAgQMHjlMceYihLY1tcGHT7G1aQRw4cODAcYpjNkrLi2IbxWtLcj5A3I8sceDAgQPHy29+AmkThykILO7JAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'VicoHu-个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'VicoHu-个人博客';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

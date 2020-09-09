@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?fa6cc5db580a54a9a863a5425b9592a2"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>LeetCode——打家劫舍问题——动态规划 | VicoHu-个人博客 | 用程序员的眼光，戏剧地看待世界</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="LeetCode,算法,Java,动态规划">
+    <meta name="description" content="打家劫舍问题你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。   示例 1:  1234输入: [1,2,3,1]输出: 4解释: 偷窃 1 号房屋 (金额 &amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode——打家劫舍问题——动态规划">
+<meta property="og:url" content="https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.html">
+<meta property="og:site_name" content="VicoHu-个人博客">
+<meta property="og:description" content="打家劫舍问题你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。   示例 1:  1234输入: [1,2,3,1]输出: 4解释: 偷窃 1 号房屋 (金额 &amp;#x">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-27T13:27:27.000Z">
+<meta property="article:modified_time" content="2020-09-05T11:25:14.056Z">
+<meta property="article:author" content="VicoHu">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="VicoHu-个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">VicoHu</h5>
+          <a href="mailto:vicohu@163.com" title="vicohu@163.com" class="mail">vicohu@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                类别
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/VicoHu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/wall5235" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                新浪微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://wall.vicohu.com" target="_blank" >
+                <i class="icon icon-lg icon-bolt"></i>
+                刷网课
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">LeetCode——打家劫舍问题——动态规划</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">LeetCode——打家劫舍问题——动态规划</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-27T13:27:27.000Z" itemprop="datePublished" class="page-time">
+  2020-05-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/LeetCode/">LeetCode</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/LeetCode/Java/">Java</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打家劫舍问题"><span class="post-toc-text">打家劫舍问题</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-LeetCode——打家劫舍问题——动态规划"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">LeetCode——打家劫舍问题——动态规划</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-27 21:27:27" datetime="2020-05-27T13:27:27.000Z"  itemprop="datePublished">2020-05-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/LeetCode/">LeetCode</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/LeetCode/Java/">Java</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<h4 id="打家劫舍问题"><a href="#打家劫舍问题" class="headerlink" title="打家劫舍问题"></a>打家劫舍问题</h4><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。</p>
+</blockquote>
+<blockquote>
+<p><strong>示例 1:</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,1]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 偷窃 1 号房屋 (金额 &#x3D; 1) ，然后偷窃 3 号房屋 (金额 &#x3D; 3)。</span><br><span class="line">     偷窃到的最高金额 &#x3D; 1 + 3 &#x3D; 4 。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>示例 2:</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,7,9,3,1]</span><br><span class="line">输出: 12</span><br><span class="line">解释: 偷窃 1 号房屋 (金额 &#x3D; 2), 偷窃 3 号房屋 (金额 &#x3D; 9)，接着偷窃 5 号房屋 (金额 &#x3D; 1)。</span><br><span class="line">     偷窃到的最高金额 &#x3D; 2 + 9 + 1 &#x3D; 12 。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>对于求最优解得题目，我编码效率最快的，自然是递归，但是，递归在数组的长度越来越长是，所需的世界也会飞速增长。因为递归进行了很多重复的运算。<br>对于本题而言，或许动态规划更加适合当前题目的情景。根据题目规则我们可以得到几个信息。</p>
+</blockquote>
+<blockquote>
+<p><strong><em>Opt[i] = （ Opt[i - 2] + Nums[i] ）</em></strong> <strong><u>或者</u></strong> <strong><em>（Opt[i - 1]）</em></strong></p>
+</blockquote>
+<blockquote>
+<p>i为第i个元素，opt[i]为第i个及其之前的元素的最优解（不考虑之后的元素，只考虑当前元素和之前的元素），Nums为传入的数组</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> y = <span class="number">0</span>, n = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 初始化2个变量，代表着选取该节点和不选取该节点。y: yes, n: no</span></span><br><span class="line">        <span class="keyword">int</span>[] opt = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">        <span class="comment">// 初始化一个数组，用于存储每个节点的当前元素及其之前元素的最优解（不管之后的元素 是否选择）</span></span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 如果传入的数组为空，返回值为0</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 如果传入的值为1，返回值为当前数组的唯一元素</span></span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果，满足传入数组的长度大于等于2</span></span><br><span class="line">        opt[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        opt[<span class="number">1</span>] = Math.max(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="comment">// 第一个元素及之前元素的最优解为第一个元素本身</span></span><br><span class="line">        <span class="comment">// 第二个元素及之前元素的最优解为第一个元素或者第二个元素（取大值）</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= nums.length - <span class="number">1</span>; i++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 循环计算，2和2之后每一个元素及之前元素的最优解</span></span><br><span class="line">            <span class="comment">// 每个节点都会遇到2个可能，需要当前元素和不需要当前元素</span></span><br><span class="line">            y = nums[i] + opt[i - <span class="number">2</span>];</span><br><span class="line">            n = opt[i - <span class="number">1</span>];</span><br><span class="line">            opt[i] = Math.max(y,n);</span><br><span class="line">            <span class="comment">// 取最优解</span></span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(opt);</span><br><span class="line">        <span class="comment">// 对最优解进行排序，取最大值即为当前题目的最优解</span></span><br><span class="line">        <span class="keyword">return</span> opt[nums.length - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 返回排序后最后一个元素（最大的元素）</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-05T11:25:14.056Z" itemprop="dateUpdated">2020-09-05 19:25:14</time>
+</span><br>
+
+
+        
+        非常感谢您访问并阅读我写的文章，您的支持是我最大的动力！谢谢您！
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.vicohu.com">
+            <img src="/img/avatar.jpg" alt="VicoHu">
+            VicoHu
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/" rel="tag">LeetCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&title=《LeetCode——打家劫舍问题——动态规划》 — VicoHu-个人博客&pic=https://www.vicohu.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&title=《LeetCode——打家劫舍问题——动态规划》 — VicoHu-个人博客&source=VicoHu，一个有导演梦的程序员" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LeetCode——打家劫舍问题——动态规划》 — VicoHu-个人博客&url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&via=https://www.vicohu.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/CSharp%20.Net%20CodeFist%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">C# .Net CodeFist编码基础流程</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/LeetCode%E2%80%94%E2%80%94%E4%BC%9A%E8%AE%AE%E5%AE%A4%20II%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">LeetCode——会议室 II——动态规划</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "UVNqDDXYLnL5HE8NTu1O7Oqy-gzGzoHsz",
+            appKey: "tidEzLhcsNY5nvzrquBn4Y8D",
+            avatar: "mm",
+            placeholder: "说些什么吧！",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢各位大爷的支持~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>VicoHu &copy; 2019 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">湘ICP备19020459号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&title=《LeetCode——打家劫舍问题——动态规划》 — VicoHu-个人博客&pic=https://www.vicohu.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&title=《LeetCode——打家劫舍问题——动态规划》 — VicoHu-个人博客&source=VicoHu，一个有导演梦的程序员" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LeetCode——打家劫舍问题——动态规划》 — VicoHu-个人博客&url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&via=https://www.vicohu.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.vicohu.com/LeetCode%E2%80%94%E2%80%94%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAAE+CAAAAAAxUyPsAAAFN0lEQVR42u3ay24jSRADQP//T89eF/BKJpkt72FCp4FH6ke0ALGY9fUVv/7865X87/t3vnrP9//9/sqv89Xx35/l6xMvfPjw4cOH7+0p33MkF5FTtijvP5uQtcf/gRgfPnz48OGb+JKQkQSCnC8/4yUttO/MTfDhw4cPH77f50uW/Xm5kESlZ1GSs+PDhw8fPnz/F19Si+cV/D3W5HEnD0D48OHDhw/f7/C1IeATi/z8lorbC475S7MOfPjw4cOHr9yF9ff8+yP7+/Dhw4cP31/P92d6XeqALTRcxt75lrXaAR8+fPjw4ZscLiX4++V6fgNtaMjr+O1BFl8LfPjw4cOHL+ZLCvGtvm+jQ16I51V+G4naR44PHz58+PC1fO0Gta0gSELJPfS0I+1koB6FKnz48OHDhy/me3+a/EBt1LgPBrYHnF9bVKbgw4cPHz58B76E8tkf/uQI94FBshFtJMaHDx8+fPjOfO1Pe37z+Rg+/2xbHLRn/+FLgA8fPnz48D3E19brybD8EmLaoLNFnHqogA8fPnz48E1827A8OVk+8N5K/E+X9T/cBT58+PDhw1fyRcPgeEfWNiBvh+5FsDhEluIx4MOHDx8+fCXfY+V1fMxLWd+GmEsgO30H8eHDhw8fvrIyyH/Ot8X29jAuQ/qtrH95nfjw4cOHD98+ax4Hz+9/8i9hJf/Lfey9BR18+PDhw4ev5dtK87xQSNAvMeX9+/OyY4xo+PDhw4cP32F1f8fahtPbprT2U0+Fs5f3iw8fPnz48MV8+fL+chFbKEnm/NswIC8j6moeHz58+PDhiy8uv6x8I1dCkCzU7+XF9nh+KOvx4cOHDx++ac5bJJ24jr+Em+019iXb/eLDhw8fPnwTXxsdngollwdzqf63sfp/nBcfPnz48OGb+LayfvtL23tfyogNNP83Pnz48OHD1/KNP9gB0CXoXKLGFk228+LDhw8fPnx3vq22zi/6UqAnn9qi0mk4gQ8fPnz48J352h/7tg7IQ0NeXuRFQD4GiIb6+PDhw4cPX8z3VDX//ga2Yn1bzOeBox1OjBMGfPjw4cOH7wPB5VLZ57eaB5ftkYylBj58+PDhwzfxJX9vQ0MbXFroT4/to6vChw8fPnz44qu6DKe3bWdb4d5WFUl82WJN9L3Dhw8fPnz44mnvJ8r6bTSenH0r67di4uXf8eHDhw8fvmVNPTJtF3pZzOeRKD97Pjz44YHhw4cPHz585cq3PVD7ALaivy0Otm157cAeHz58+PDha/nyKLBtUHsKtF32t4v/vNDHhw8fPnz4nuK7nziPBckY/jJIuHwVirIeHz58+PDhe3RM3m5EuyNuVUW+9S0/crGhDR8+fPjw4Yv5nlpgb8PpdpH/bHy5fOqrvXR8+PDhw4cvKMHb6HBZnG9b3/IIld9XUVjgw4cPHz58Jd/nfviTm9wywLMPYAtt+PDhw4cP38Z3iQjt5SbE7Xa0y+i9PfLLsh4fPnz48OEr+fKQkVcD28V9xa82ZiWhpD4jPnz48OHDd+Zro0k7xs4L8faRPFXxF4MHfPjw4cOHr+Rrg8KlRt8GAPnQur3h9mhbwMKHDx8+fPjale+9fH8qKNyDyyfOiw8fPnz48G18l2CRwz2w/C6veas8ilofHz58+PDh+xhfcikbaPvw8tHCFnTy9+DDhw8fPnyf47tsAsvpk6va3nkfe+PDhw8fPnxP8W3buU6z94C+jRTJgv8edPDhw4cPH74L31ZV59AtX3KufNtZe8NPlfv48OHDhw/ft7/8A9w62el6oEbKAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'VicoHu-个人博客';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'VicoHu-个人博客';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
